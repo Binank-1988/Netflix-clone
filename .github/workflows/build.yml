@@ -27,7 +27,6 @@ jobs:
           docker tag tic-tac-toe janal024/tic-tac-toe:latest
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           docker push janal024/tic-tac-toe:latest
-
         env:
           DOCKER_CLI_ACI: 1
       - name: Image scan
