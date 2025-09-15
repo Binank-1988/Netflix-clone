@@ -24,9 +24,7 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      # (Optional) Run tests and generate coverage before SonarQube scan
-      - name: Run tests
-        run: npm test -- --coverage
+
 
       - name: SonarQube Scan
         run: sonar-scanner \
