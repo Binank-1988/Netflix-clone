@@ -39,21 +39,22 @@ jobs:
 
       - name: Docker build and push
         run: |
-          docker build --build-arg TMDB_V3_API_KEY=c12c2e55a68ef53d976bf479c8e9467e -t netflix .
+          docker build --build-arg TMDB_V3_API_KEY=${{ secrets.TMDB_V3_API_KEY }} -t netflix .
           docker tag netflix binank2000/netflix:latest
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           docker push binank2000/netflix:latest
         env:
           DOCKER_CLI_ACI: 1
 
-deploy:
-    needs: build-analyze-scan
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Pull the docker image
         run: docker pull binank2000/netflix:latest
+
       - name: Trivy image scan
         run: trivy image binank2000/netflix:latest
+
       - name: Run the container netflix
         run: docker run -d --name netflix -p 8081:80 binank2000/netflix:latest
-		
