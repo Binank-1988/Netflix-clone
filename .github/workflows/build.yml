@@ -36,27 +36,27 @@ jobs:
             exit 1
           fi
           docker build -t tic-tac-toe .
-          docker tag tic-tac-toe janal024/tic-tac-toe:latest
+          docker tag tic-tac-toe binank2000/tic-tac-toe:latest
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-          docker push janal024/tic-tac-toe:latest
+          docker push binank2000/tic-tac-toe:latest
         env:
           DOCKER_CLI_ACI: 1
 
       - name: Trivy image scan
-        run: trivy image janal024/tic-tac-toe:latest > trivyimage.txt
+        run: trivy image binank2000/tic-tac-toe:latest > trivyimage.txt
 
   deploy:
     needs: build-analyze-scan
     runs-on: [self-hosted, linux, X64]
     steps:
       - name: Docker pull image
-        run: docker pull janal024/tic-tac-toe:latest
+        run: docker pull binank2000/tic-tac-toe:latest
 
       - name: Image scan after pull
-        run: trivy image janal024/tic-tac-toe:latest > trivyimagedeploy.txt
+        run: trivy image binank2000/tic-tac-toe:latest > trivyimagedeploy.txt
 
       - name: Deploy container
-        run: docker run -d --name game -p 3000:3000 janal024/tic-tac-toe
+        run: docker run -d --name game -p 3000:3000 binank2000/tic-tac-toe
 
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name eks_cloud_project
