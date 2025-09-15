@@ -15,12 +15,11 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-    - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v2
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: http://65.2.75.72:9000
-
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: http://65.2.75.72:9000
 
       - name: install trivy
         run: |
