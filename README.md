@@ -1,3 +1,7 @@
+sudo apt-get update
+sudo apt-get install -y unzip nodejs npm
+
+
 <div align="center">
   <a href="http://netflix-clone-with-tmdb-using-react-mui.vercel.app/">
     <img src="./public/assets/netflix-logo.png" alt="Logo" width="100" height="32">
